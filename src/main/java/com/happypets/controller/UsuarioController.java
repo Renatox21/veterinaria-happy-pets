@@ -24,7 +24,7 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService service;
 	
-	//Metodo
+	
 	@GetMapping("/listarUsuarios")
 	@ResponseBody
 	public ResponseEntity<List<Usuario>> listaUsuario() {
