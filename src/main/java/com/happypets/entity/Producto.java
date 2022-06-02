@@ -16,14 +16,14 @@ import lombok.NoArgsConstructor;
 public class Producto {
 
 	@Id	
-	private id id_producto
+	private int id_producto;
 	
-	private String desc_product
+	private String desc_product;
 	
-	private int stock
+	private int stock;
 	
-	private double pre_uni
+	private double pre_uni;
 	
-	private int id_categoria	
+	private int id_categoria;	
 	
 }
