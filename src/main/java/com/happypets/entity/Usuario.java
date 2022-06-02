@@ -1,5 +1,6 @@
 package com.happypets.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -16,10 +17,13 @@ import lombok.NoArgsConstructor;
 public class Usuario {
 
 	@Id
+	@Column(name = "user")
 	private String user;
 	
+	@Column(name = "password")
 	private String password;
 	
+	@Column(name = "cargo")
 	private String cargo;
 	
 	
