@@ -9,8 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +21,7 @@ import com.happypets.service.ProductoService;
 import com.happypets.util.Constantes;
 
 @RestController
-@RequestMapping("rest/producto")
+@RequestMapping("/rest/producto")
 public class ProductoController {
 
 	@Autowired
@@ -34,7 +36,7 @@ public class ProductoController {
 	
 	@GetMapping("/listarProductosPorNombre")
 	@ResponseBody
-	public ResponseEntity<List<Producto>> listarProductoPorNombre(@PathVariable(name = "nombre", required = true) String nombre) {
+	public ResponseEntity<List<Producto>> listarProductoPorNombre(@RequestParam(value = "nombre", required = false) String nombre) {
 		List<Producto> lista = service.listaProductoPorNombre(nombre);
 		return ResponseEntity.ok(lista);
 	}
@@ -47,7 +49,7 @@ public class ProductoController {
 		
 		try {
 						
-			Producto objProducto = service.insertaActualizaProducto(prod);
+			Producto objProducto = service.insertaProducto(prod);
 			if(objProducto == null){
 				salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
 			}else {
@@ -57,6 +59,32 @@ public class ProductoController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
+		}
+		return ResponseEntity.ok(salida);
+	}
+	
+	@PutMapping("/actualizarProducto")
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> actualizarProducto(@RequestBody Producto pord){
+		
+		Map<String, Object> salida = new HashMap<String, Object>();
+		
+		try {						
+			Producto obj = service.obtenerProducto(pord.getId_producto());
+			if (obj == null) {
+				salida.put("mensaje", "El producto no existe");
+				return ResponseEntity.ok(salida);
+			}
+			Producto objProducto = service.actualizaProducto(pord);
+			if(objProducto == null){
+				salida.put("mensaje", Constantes.MENSAJE_ACT_ERROR);
+			}else {
+				salida.put("mensaje", Constantes.MENSAJE_ACT_EXITOSO);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			salida.put("mensaje", Constantes.MENSAJE_ACT_ERROR);
 		}
 		return ResponseEntity.ok(salida);
 	}
