@@ -18,18 +18,28 @@ public class ProductoServiceImpl implements ProductoService {
 	private ProductoRepository repository;
 	
 	@Override
-	public Producto insertaActualizaProducto(Producto producto) {		
+	public Producto insertaProducto(Producto producto) {		
 		return repository.save(producto);
 	}
 
 	@Override
+	public Producto actualizaProducto(Producto producto) {		
+		return repository.save(producto);
+	}
+	
+	@Override
 	public List<Producto> listaProducto() {		
 		return repository.findAll();
 	}
-
+	
 	@Override
 	public List<Producto> listaProductoPorNombre(String nombre) {		
 		return repository.buscarProductoProNombre(nombre);
+	}
+
+	@Override
+	public Producto obtenerProducto(int id) {
+		return repository.findById(id).orElse(null);
 	}
 
 }
