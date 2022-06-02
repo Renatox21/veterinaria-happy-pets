@@ -18,13 +18,28 @@ public class UsuarioServiceImpl implements UsuarioService {
 	private UsuarioRepository repository;
 	
 	@Override
-	public Usuario insertaActualizaUsuario(Usuario usuario) {		
+	public Usuario insertaUsuario(Usuario usuario) {		
 		return repository.save(usuario);
 	}
 
 	@Override
 	public List<Usuario> listaUsuario() {		
 		return repository.findAll();
+	}
+
+	@Override
+	public Usuario actualizaUsuario(Usuario usuario) {
+		Usuario usu = obtenerUsuario(usuario.getUser());
+		if (usu == null) {
+			return null;
+		}
+
+		return repository.save(usuario);
+	}
+
+	@Override
+	public Usuario obtenerUsuario(String user) {		
+		return repository.findById(user).orElse(null);
 	}
 
 }

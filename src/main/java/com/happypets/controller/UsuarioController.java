@@ -18,7 +18,7 @@ import com.happypets.service.UsuarioService;
 import com.happypets.util.Constantes;
 
 @RestController
-@RequestMapping("rest/usuario")
+@RequestMapping("/rest/usuario")
 public class UsuarioController {
 
 	@Autowired
@@ -40,7 +40,7 @@ public class UsuarioController {
 		
 		try {
 						
-			Usuario objUsuario = service.insertaActualizaUsuario(usu);
+			Usuario objUsuario = service.insertaUsuario(usu);
 			if(objUsuario == null){
 				salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
 			}else {
@@ -53,5 +53,7 @@ public class UsuarioController {
 		}
 		return ResponseEntity.ok(salida);
 	}
+	
+	
 	
 }

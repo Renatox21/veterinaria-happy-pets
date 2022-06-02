@@ -6,8 +6,9 @@ import com.happypets.entity.Usuario;
 
 public interface UsuarioService {
 
-	public abstract Usuario insertaActualizaUsuario(Usuario usuario);
-	
+	public Usuario insertaUsuario(Usuario usuario);
+	public Usuario actualizaUsuario(Usuario usuario);
 	public abstract List<Usuario> listaUsuario();
+	public Usuario obtenerUsuario(String user);
 	
 }
