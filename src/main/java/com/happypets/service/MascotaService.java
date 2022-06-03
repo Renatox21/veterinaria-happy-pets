@@ -1,11 +1,9 @@
 package com.happypets.service;
 
-import java.util.List;
 import com.happypets.entity.Mascota;
 
 public interface MascotaService {
 	
-	public List<Mascota> listarMascotas();
+	public abstract Mascota insertaActualizaMascota(Mascota mascota);
 	
-	public Mascota actualizarMascota(Mascota mascota);	
 }
