@@ -12,7 +12,7 @@ import com.happypets.entity.Producto;
 @Repository
 public interface ProductoRepository extends JpaRepository<Producto, Integer>{
 
-	@Query("select p from Producto p where desc_producto like :nombre")
+	@Query("select p from Producto p where desc_producto like %:nombre%")
 	public abstract List<Producto> buscarProductoProNombre(@Param("nombre")String nombre);
 	
 }
