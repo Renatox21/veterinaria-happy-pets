@@ -4,10 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 @Entity
 @Table(name = "tb_mascota")
 public class Mascota {
@@ -27,6 +23,10 @@ public class Mascota {
 	
 	private String fec_nac;
 
+	public Mascota() {
+		
+	}
+
 	public Mascota(int id_mascota, String nombre_mascota, String tipo_mascota, String raza_mascota, int id_vacunas,
 			String fec_mascota, String fec_nac) {
 		super();
@@ -37,10 +37,6 @@ public class Mascota {
 		this.id_vacunas = id_vacunas;
 		this.fec_mascota = fec_mascota;
 		this.fec_nac = fec_nac;
-	}
-
-	public Mascota() {
-		
 	}
 
 	public int getId_mascota() {
@@ -98,5 +94,6 @@ public class Mascota {
 	public void setFec_nac(String fec_nac) {
 		this.fec_nac = fec_nac;
 	}
+	
 	
 }
