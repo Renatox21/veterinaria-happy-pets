@@ -1,5 +1,7 @@
 package com.happypets.entity;
 
+import java.sql.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -19,16 +21,12 @@ public class Mascota {
 	
 	private int id_vacunas;
 	
-	private String fec_mascota;
+	private Date fec_mascota;
 	
-	private String fec_nac;
-
-	public Mascota() {
-		
-	}
+	private Date fec_nac;
 
 	public Mascota(int id_mascota, String nombre_mascota, String tipo_mascota, String raza_mascota, int id_vacunas,
-			String fec_mascota, String fec_nac) {
+			Date fec_mascota, Date fec_nac) {
 		super();
 		this.id_mascota = id_mascota;
 		this.nombre_mascota = nombre_mascota;
@@ -79,21 +77,20 @@ public class Mascota {
 		this.id_vacunas = id_vacunas;
 	}
 
-	public String getFec_mascota() {
+	public Date getFec_mascota() {
 		return fec_mascota;
 	}
 
-	public void setFec_mascota(String fec_mascota) {
+	public void setFec_mascota(Date fec_mascota) {
 		this.fec_mascota = fec_mascota;
 	}
 
-	public String getFec_nac() {
+	public Date getFec_nac() {
 		return fec_nac;
 	}
 
-	public void setFec_nac(String fec_nac) {
+	public void setFec_nac(Date fec_nac) {
 		this.fec_nac = fec_nac;
-	}
-	
+	}	
 	
 }
