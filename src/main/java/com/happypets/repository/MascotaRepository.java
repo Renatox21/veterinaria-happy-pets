@@ -7,5 +7,5 @@ import com.happypets.entity.Mascota;
 
 @Repository
 public interface MascotaRepository extends JpaRepository<Mascota, Integer>{
-
+	
 }
