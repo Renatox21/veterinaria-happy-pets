@@ -33,11 +33,9 @@ public class Cita {
 	private String razon_consulta;
 
 	private double costo_consulta;
-	
-	@Temporal(TemporalType.DATE)
+		
 	private Date fec_registro;
 	
-	@Temporal(TemporalType.DATE)
 	private Date fec_consulta;
 	
 }

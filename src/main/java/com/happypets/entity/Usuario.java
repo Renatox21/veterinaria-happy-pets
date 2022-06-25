@@ -23,8 +23,6 @@ public class Usuario {
 	@Column(name = "password")
 	private String password;
 	
-	@Column(name = "cargo")
-	private String cargo;
 	
 	
 }
