@@ -43,13 +43,24 @@ public class ProductoController {
 	
 	@PostMapping("/agregarProducto")
 	@ResponseBody
-	public ResponseEntity<Map<String, Object>> insertaProducto(@RequestBody Producto prod){
+	public ResponseEntity<Map<String, Object>> insertaProducto(
+			@RequestParam(value = "desc_product", required = false) String desc_product,
+			@RequestParam(value = "stock", required = false) int stock,
+			@RequestParam(value = "pre_uni", required = false) double pre_uni,
+			@RequestParam(value = "id_categoria", required = false) int id_categoria
+			){
 		
 		Map<String, Object> salida = new HashMap<String, Object>();
 		
 		try {
+			
+			Producto p = new Producto();
+			p.setDesc_product(desc_product);
+			p.setStock(stock);
+			p.setPre_uni(pre_uni);
+			p.setId_categoria(id_categoria);
 						
-			Producto objProducto = service.insertaProducto(prod);
+			Producto objProducto = service.insertaProducto(p);
 			if(objProducto == null){
 				salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
 			}else {
