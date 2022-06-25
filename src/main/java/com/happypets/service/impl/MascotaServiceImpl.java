@@ -24,5 +24,10 @@ public class MascotaServiceImpl implements MascotaService{
 	public List<Mascota> listaMascotaPorNombre(String nombre) {
 		return repository.buscarMascotaPorNombre(nombre);
 	}
+
+	@Override
+	public List<Mascota> listaMascotas() {		
+		return repository.findAll();
+	}
 	
 }

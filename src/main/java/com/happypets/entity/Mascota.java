@@ -1,12 +1,18 @@
 package com.happypets.entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.deser.std.DateDeserializers.SqlDateDeserializer;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,8 +37,14 @@ public class Mascota {
 	
 	private int id_vacunas;
 	
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	@JsonDeserialize(using = SqlDateDeserializer.class)
+	@Temporal(TemporalType.DATE)
 	private Date fec_mascota;
 	
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	@JsonDeserialize(using = SqlDateDeserializer.class)
+	@Temporal(TemporalType.DATE)
 	private Date fec_nac;
 
 }
