@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.happypets.entity.Mascota;
+import com.happypets.entity.Producto;
 import com.happypets.service.MascotaService;
 import com.happypets.util.Constantes;
 
@@ -94,6 +96,33 @@ public class MascotaController {
 	public ResponseEntity<List<Mascota>> listarMascotaPorNombre(){
 		List<Mascota> lista = service.listaMascotas();
 		return ResponseEntity.ok(lista);
+	}
+	
+	@PutMapping("/actualizarMascota")
+	@ResponseBody
+	@Operation(summary = "Actualizar mascota", description = "Permite actualizar mascota")
+	public ResponseEntity<Map<String, Object>> actualizarMascota(@Parameter(name = "mascota", description = "Envia una entidad de tipo mascota") @RequestBody Mascota masc){
+		
+		Map<String, Object> salida = new HashMap<String, Object>();
+		
+		try {						
+			Mascota obj = service.obtenerMascota(masc.getId_mascota());
+			if (obj == null) {
+				salida.put("mensaje", "El id de la mascota no existe");
+				return ResponseEntity.ok(salida);
+			}
+			Mascota objMascota = service.insertaActualizaMascota(masc);
+			if(objMascota == null){
+				salida.put("mensaje", Constantes.MENSAJE_ACT_ERROR);
+			}else {
+				salida.put("mensaje", Constantes.MENSAJE_ACT_EXITOSO);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			salida.put("mensaje", Constantes.MENSAJE_ACT_ERROR);
+		}
+		return ResponseEntity.ok(salida);
 	}
 	
 }
