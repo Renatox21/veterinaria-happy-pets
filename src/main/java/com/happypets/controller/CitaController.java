@@ -16,8 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.happypets.entity.Cita;
 import com.happypets.service.CitaService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
-@RequestMapping("/apiCita")
+@RequestMapping("rest/Cita")
+@Tag(name = "API Cita", description = "API con servicios para la gestion de cita")
 public class CitaController {
 	
 	@Autowired
@@ -25,18 +29,22 @@ public class CitaController {
 	
 	@GetMapping("/listarCita")
 	@ResponseBody
+	@Operation(summary = "Listar citas", description = "Obtener listado de las citas")
 	public List<Cita> listarCita(){
 		return citaService.listarCitas();
 	}
 	
 	@PostMapping("/agregarCita")
 	@ResponseBody
+	@Operation(summary = "Registro cita", description = "Registra citas en la base de datos")
 	public Cita guardarCita(@RequestBody Cita cita){
 		return citaService.guardarCita(cita);
 	}
 	
+	
 	@PutMapping("/actualizarCita/{id}")
 	@ResponseBody
+	@Operation(summary = "Actualizar cita", description = "Actualiza citas existentes")
 	public Cita actualizarCita(@RequestBody Cita cita, @PathVariable int id){
 		Cita citaActual = citaService.buscarPorId(id);
 		
@@ -45,6 +53,7 @@ public class CitaController {
 	
 	@DeleteMapping("/eliminarCita/{id}")
 	@ResponseBody
+	@Operation(summary = "Elimina cita", description = "Elimina citas existentes")
 	public void eliminarCita(@PathVariable("id") int id){
 		citaService.eliminarCita(id);
 	}

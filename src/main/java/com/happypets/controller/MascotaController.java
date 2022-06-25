@@ -18,8 +18,13 @@ import com.happypets.entity.Mascota;
 import com.happypets.service.MascotaService;
 import com.happypets.util.Constantes;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("rest/mascota")
+@Tag(name = "API Mascota", description = "API con servicios para la gestion de las mascotas")
 public class MascotaController {
 	
 	@Autowired
@@ -27,7 +32,10 @@ public class MascotaController {
 	
 	@PostMapping("/agregarMascota")
 	@ResponseBody
-	public ResponseEntity<Map<String, Object>> insertaMascota(@RequestBody Mascota masc){
+	@Operation(summary = "Registra Mascota", description = "Permite registrar el ingreso de una nueva mascota")
+	public ResponseEntity<Map<String, Object>> insertaMascota(
+			@Parameter(name = "masc", description = "Ingresa valores de la entidad Mascotas")
+			@RequestBody Mascota masc){
 		
 		Map<String, Object> salida = new HashMap<String, Object>();
 		
@@ -50,7 +58,10 @@ public class MascotaController {
 	
 	@GetMapping("/listarMascotaPorNombre")
 	@ResponseBody
-	public ResponseEntity<List<Mascota>> listarMascotaPorNombre(@PathVariable(value = "nombre", required = true) String nombre){
+	@Operation(summary = "Listar Mascota", description = "Obtener listado de las mascotas")
+	public ResponseEntity<List<Mascota>> listarMascotaPorNombre(
+			@Parameter(name = "nombre", description = "Nombre o letra del nombre de la mascota")
+			@PathVariable(value = "nombre", required = true) String nombre){
 		List<Mascota> lista = service.listaMascotaPorNombre(nombre);
 		return ResponseEntity.ok(lista);
 	}

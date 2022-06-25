@@ -20,8 +20,13 @@ import com.happypets.entity.Producto;
 import com.happypets.service.ProductoService;
 import com.happypets.util.Constantes;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/rest/producto")
+@Tag(name = "API Producto", description = "API con servicios para la gestion de productos")
 public class ProductoController {
 
 	@Autowired
@@ -29,6 +34,7 @@ public class ProductoController {
 	
 	@GetMapping("/listarProductos")
 	@ResponseBody
+	@Operation(summary = "Listar productos", description = "Obtener listado de productos")
 	public ResponseEntity<List<Producto>> listaProducto() {
 		List<Producto> lista = service.listaProducto();
 		return ResponseEntity.ok(lista);
@@ -36,6 +42,7 @@ public class ProductoController {
 	
 	@GetMapping("/listarProductosPorNombre")
 	@ResponseBody
+	@Operation(summary = "Listar producto por nombre", description = "Obtener listado de productos filtrado por su nombre")
 	public ResponseEntity<List<Producto>> listarProductoPorNombre(@RequestParam(value = "nombre", required = false) String nombre) {
 		List<Producto> lista = service.listaProductoPorNombre(nombre);
 		return ResponseEntity.ok(lista);
@@ -43,10 +50,15 @@ public class ProductoController {
 	
 	@PostMapping("/agregarProducto")
 	@ResponseBody
+	@Operation(summary = "Registrar productos", description = "Permite registrar productos")
 	public ResponseEntity<Map<String, Object>> insertaProducto(
+			@Parameter(name = "descripcion", description = "Descripcion del parametro")
 			@RequestParam(value = "desc_product", required = false) String desc_product,
+			@Parameter(name = "stock", description = "Cantidad del producto que ingresa")
 			@RequestParam(value = "stock", required = false) int stock,
+			@Parameter(name = "precio", description = "Precio unitario del producto")
 			@RequestParam(value = "pre_uni", required = false) double pre_uni,
+			@Parameter(name = "id de la categoria", description = "Ingresa el id de la categoria")
 			@RequestParam(value = "id_categoria", required = false) int id_categoria
 			){
 		
@@ -76,7 +88,8 @@ public class ProductoController {
 	
 	@PutMapping("/actualizarProducto")
 	@ResponseBody
-	public ResponseEntity<Map<String, Object>> actualizarProducto(@RequestBody Producto pord){
+	@Operation(summary = "Actualizar productos", description = "Permite actualizar productos")
+	public ResponseEntity<Map<String, Object>> actualizarProducto(@Parameter(name = "producto", description = "Envia una entidad de tipo Producto") @RequestBody Producto pord){
 		
 		Map<String, Object> salida = new HashMap<String, Object>();
 		

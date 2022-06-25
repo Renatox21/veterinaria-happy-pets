@@ -24,8 +24,13 @@ import com.happypets.entity.Cliente;
 import com.happypets.service.ClienteService;
 import com.happypets.util.Constantes;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/rest/cliente")
+@Tag(name = "API Cliente", description = "API con servicios para la gestion de clientes")
 public class ClienteController {
 
 	@Autowired
@@ -33,27 +38,39 @@ public class ClienteController {
 	
 	@GetMapping("/listarClientes")
 	@ResponseBody
-	public ResponseEntity<List<Cliente>> listaProducto() {
+	@Operation(summary = "Listar Cliente", description = "Permite registrar el ingreso de una nueva mascota")
+	public ResponseEntity<List<Cliente>> listaCliente() {
 		List<Cliente> lista = service.listaCliente();
 		return ResponseEntity.ok(lista);
 	}
 		
 	@GetMapping("/listarClientesPorNombre")
 	@ResponseBody
-	public ResponseEntity<List<Cliente>> listarProductoPorNombre(@RequestParam(value = "nombre", required = false) String nombre) {
+	@Operation(summary = "Listar Cliente por Nombre", description = "Permite listar el cliente por nombre o una letra de su nombre")
+	public ResponseEntity<List<Cliente>> listarClientePorNombre(
+			@Parameter(name = "Nombre", description = "Ingresa un nombre o una letra")
+			@RequestParam(value = "nombre", required = false) String nombre) {
 		List<Cliente> lista = service.listaClientePorNombre(nombre);
 		return ResponseEntity.ok(lista);
 	}
 	
 	@PostMapping("/agregarCliente")
 	@ResponseBody
+	@Operation(summary = "Registro cliente", description = "Registra los clientes en la base de datos")
 	public ResponseEntity<Map<String, Object>> saveCliente(
+			@Parameter(name = "dni", description = "Ingresa el dni del cliente")
 			@RequestParam(value="dni", required = false) String dni,
+			@Parameter(name = "nombre", description = "Ingresa el nombre del cliente")
 			@RequestParam(value="nombre", required = false) String nombre,
+			@Parameter(name = "apellido", description = "Ingresa el apellido del cliente")
 			@RequestParam(value="apellido", required = false) String apellido,
+			@Parameter(name = "correo", description = "Ingresa el correo del cliente")
 			@RequestParam(value="correo", required = false) String correo,
+			@Parameter(name = "telefono", description = "Ingresa el telefono del cliente")
 			@RequestParam(value="telefono", required = false) String telefono,
+			@Parameter(name = "direccion", description = "Ingresa el direccion del cliente")
 			@RequestParam(value="direccion", required = false) String direccion,
+			@Parameter(name = "sexo", description = "Ingresa el sexo del cliente")
 			@RequestParam(value="sexo", required = false) String sexo) {
 		
 		Map<String, Object> dispo = new HashMap<>();

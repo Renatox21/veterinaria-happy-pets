@@ -18,8 +18,12 @@ import com.happypets.entity.Usuario;
 import com.happypets.service.UsuarioService;
 import com.happypets.util.Constantes;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/rest/usuario")
+@Tag(name = "API Usuario", description = "API con servicios para la gestion de usuarios")
 public class UsuarioController {
 
 	@Autowired
@@ -28,6 +32,7 @@ public class UsuarioController {
 	
 	@GetMapping("/listarUsuarios")
 	@ResponseBody
+	@Operation(summary = "Listado de usuarios", description = "Obtener listado de usuarios")
 	public ResponseEntity<List<Usuario>> listaUsuario() {
 		List<Usuario> lista = service.listaUsuario();
 		return ResponseEntity.ok(lista);
@@ -36,6 +41,7 @@ public class UsuarioController {
 	
 	@PostMapping("/agregarUsuario")
 	@ResponseBody
+	@Operation(summary = "Registro usuario", description = "Registra nuevos usuarios")
 	public ResponseEntity<Map<String, Object>> insertaUsuario(@RequestBody Usuario usu){
 		
 		Map<String, Object> salida = new HashMap<String, Object>();
@@ -58,6 +64,7 @@ public class UsuarioController {
 	
 	@PutMapping("/actualizarUsuario")
 	@ResponseBody
+	@Operation(summary = "Actualiza usuario", description = "Actualiza los usuarios existentes")
 	public ResponseEntity<Map<String, Object>> actualizarUsuario(@RequestBody Usuario usu){
 		
 		Map<String, Object> salida = new HashMap<String, Object>();
