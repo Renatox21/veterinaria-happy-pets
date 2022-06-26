@@ -1,12 +1,18 @@
 package com.happypets.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -15,102 +21,113 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.happypets.entity.Producto;
+import com.happypets.entity.Usuario;
 import com.happypets.service.ProductoService;
+import com.happypets.service.UsuarioService;
 import com.happypets.util.Constantes;
-
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/rest/producto")
-@Tag(name = "API Producto", description = "API con servicios para la gestion de productos")
 public class ProductoController {
 
 	@Autowired
-	private ProductoService service;
-	
+	private ProductoService pservice;
+	private UsuarioService uservice;
+
+	@GetMapping("/cargarProducto")
+	public String cargarPag(Model model) {
+		model.addAttribute("producto", new Producto());
+		return "agregarProducto";
+	}
+
+	@PostMapping("/grabar")
+	public String grabarPag(@ModelAttribute Producto producto) {
+		System.out.println(producto);
+		pservice.guardarProducto(producto);
+		return "agregarProducto";
+	}
+
 	@GetMapping("/listarProductos")
 	@ResponseBody
-	@Operation(summary = "Listar productos", description = "Obtener listado de productos")
 	public ResponseEntity<List<Producto>> listaProducto() {
-		List<Producto> lista = service.listaProducto();
+		List<Producto> lista = pservice.listaProducto();
 		return ResponseEntity.ok(lista);
 	}
-	
+
 	@GetMapping("/listarProductosPorNombre")
 	@ResponseBody
-	@Operation(summary = "Listar producto por nombre", description = "Obtener listado de productos filtrado por su nombre")
-	public ResponseEntity<List<Producto>> listarProductoPorNombre(@RequestParam(value = "nombre", required = false) String nombre) {
-		List<Producto> lista = service.listaProductoPorNombre(nombre);
+	public ResponseEntity<List<Producto>> listarProductoPorNombre(
+			@RequestParam(value = "nombre", required = false) String nombre) {
+		List<Producto> lista = pservice.listaProductoPorNombre(nombre);
 		return ResponseEntity.ok(lista);
 	}
-	
+
 	@PostMapping("/agregarProducto")
 	@ResponseBody
-	@Operation(summary = "Registrar productos", description = "Permite registrar productos")
 	public ResponseEntity<Map<String, Object>> insertaProducto(
-			@Parameter(name = "descripcion", description = "Descripcion del parametro")
 			@RequestParam(value = "desc_product", required = false) String desc_product,
-			@Parameter(name = "stock", description = "Cantidad del producto que ingresa")
 			@RequestParam(value = "stock", required = false) int stock,
-			@Parameter(name = "precio", description = "Precio unitario del producto")
 			@RequestParam(value = "pre_uni", required = false) double pre_uni,
-			@Parameter(name = "id de la categoria", description = "Ingresa el id de la categoria")
-			@RequestParam(value = "id_categoria", required = false) int id_categoria
-			){
-		
+			@RequestParam(value = "id_categoria", required = false) int id_categoria) {
+
 		Map<String, Object> salida = new HashMap<String, Object>();
-		
+
 		try {
-			
+
 			Producto p = new Producto();
 			p.setDesc_product(desc_product);
 			p.setStock(stock);
 			p.setPre_uni(pre_uni);
 			p.setId_categoria(id_categoria);
-						
-			Producto objProducto = service.insertaProducto(p);
-			if(objProducto == null){
+
+			Producto objProducto = pservice.insertaProducto(p);
+			if (objProducto == null) {
 				salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
-			}else {
+			} else {
 				salida.put("mensaje", Constantes.MENSAJE_REG_EXITOSO);
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
 		}
 		return ResponseEntity.ok(salida);
 	}
-	
+
+	@PostMapping("/guardarProducto")
+	public String save(Producto producto, Model model) {
+		System.out.println(producto.toString());
+		pservice.insertaProducto(producto);
+		return "redirect:/productos";
+	}
+
 	@PutMapping("/actualizarProducto")
 	@ResponseBody
-	@Operation(summary = "Actualizar productos", description = "Permite actualizar productos")
-	public ResponseEntity<Map<String, Object>> actualizarProducto(@Parameter(name = "producto", description = "Envia una entidad de tipo Producto") @RequestBody Producto pord){
-		
+	public ResponseEntity<Map<String, Object>> actualizarProducto(@RequestBody Producto pord) {
+
 		Map<String, Object> salida = new HashMap<String, Object>();
-		
-		try {						
-			Producto obj = service.obtenerProducto(pord.getId_producto());
+
+		try {
+			Producto obj = pservice.obtenerProducto(pord.getId_producto());
 			if (obj == null) {
 				salida.put("mensaje", "El producto no existe");
 				return ResponseEntity.ok(salida);
 			}
-			Producto objProducto = service.actualizaProducto(pord);
-			if(objProducto == null){
+			Producto objProducto = pservice.actualizaProducto(pord);
+			if (objProducto == null) {
 				salida.put("mensaje", Constantes.MENSAJE_ACT_ERROR);
-			}else {
+			} else {
 				salida.put("mensaje", Constantes.MENSAJE_ACT_EXITOSO);
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			salida.put("mensaje", Constantes.MENSAJE_ACT_ERROR);
 		}
 		return ResponseEntity.ok(salida);
 	}
-	
+
 }
