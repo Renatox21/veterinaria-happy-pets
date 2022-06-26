@@ -6,7 +6,9 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,13 +33,37 @@ public class ProductoController {
 	@Autowired
 	private ProductoService service;
 	
+	@GetMapping("/cargarProducto")
+    public String cargarPag(Model model) {
+        model.addAttribute("producto", new Producto());
+        return "agregarProducto";
+    }
+
+    @PostMapping("/grabar")
+    public String grabarPag(@ModelAttribute Producto producto, Model model) {
+    	if(producto !=null && producto.getId_producto() > 0) {		
+			model.addAttribute("msj", "Producto "+producto.getId_producto()+" agregado");			
+			service.insertaProducto(producto);
+			return "agregarProducto";	
+		}else {
+			model.addAttribute("msj", "Error al registrar producto");			
+		return "agregarProducto";
+		}        
+    }
+    
+    @GetMapping("/listarProductos")
+	public String listadoProductos(@ModelAttribute Producto p, Model model) {		
+		model.addAttribute("lstProductos", service.listaProducto()); 
+		return "listadoproductos";  
+	}
+    /*
 	@GetMapping("/listarProductos")
 	@ResponseBody
 	@Operation(summary = "Listar productos", description = "Obtener listado de productos")
 	public ResponseEntity<List<Producto>> listaProducto() {
 		List<Producto> lista = service.listaProducto();
 		return ResponseEntity.ok(lista);
-	}
+	}*/
 	
 	@GetMapping("/listarProductosPorNombre")
 	@ResponseBody

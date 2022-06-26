@@ -11,8 +11,6 @@ public interface ProductoService {
 	public abstract Producto actualizaProducto(Producto producto);
 	public abstract List<Producto> listaProducto();	
 	public abstract Producto obtenerProducto(int id);	
-	public Producto guardarProducto(Producto producto);
-	public Optional<Producto> findById(Integer id);
 	public abstract List<Producto> listaProductoPorNombre(String nombre);
 	
 }
