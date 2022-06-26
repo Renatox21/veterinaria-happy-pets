@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link th:href="@{/css/bootstrap.css}" rel="stylesheet" href="../static/css/bootstrap.css">
+	<script th:src="@{/js/bootstrap.js}" src="../static/js/bootstrap.js"></script>
+	<script th:src="@{/js/jquery.js}" src="../static/js/jquery.js"></script>
+	<title>Veterinaria Happy Pets</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+	<!-- Bootstrap core CSS -->
+	<link th:href="@{vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+	<!-- Custom styles for this template -->
+	<link th:href="@{css/heroic-features.css}" rel="stylesheet">
+
+</head>
+
+<body>
+<div id="contenedor">
+		<header th:fragment="header">
+			<h1>admin</h1>
+
+		</header>
+
+		<main>
+			<section style="width: 65%;float: left;">
+
+			</section>
+		</main>
+		<footer th:fragment="footer">
+		</footer>
+	</div>
+	
+	<!-- Navigation -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+		<div class="container">
+			<a class="navbar-brand"> Veterinaria Happy Pets</a>
+
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+				aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<div class="navbar-nav">
+					<a class="nav-link active" aria-current="page"
+						th:href="@{/hola/test}">Inicio</a> <a class="nav-link" href="#">Galeria</a>
+					<a class="nav-link" href="#">Post</a> <a class="nav-link disabled"
+						href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+				</div>
+			</div>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<!--<li class="nav-item"><a class="nav-link" href="carrito.html">Carrito</a></li>-->
+					<li class="nav-item"><a class="nav-link" href="/user/cargar">Cerrar session</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+
+	<div class="container">
+	<!-- Page Heading/Breadcrumbs -->
+		<h1 class="mt-4 mb-3">
+			Mascotas
+		</h1>
+
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+			<li class="breadcrumb-item active">Agregar Mascota</li>
+		</ol>
+		<br>
+		<form th:action="@{/web/saveMascota}" method="post"	th:object=${mascota}>
+
+			<div class="form-group row">
+				<label for="inputNombre" class="col-sm-2 col-form-label">Nombre :</label>
+				<div class="col-sm-4">
+					<input th:field="*{nombre}" th:value="*{nombre}" type="text" class="form-control" id="inputNombre" placeholder="Ingrese Nombre">
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="inputTipo" class="col-sm-2 col-form-label">Tipo :</label>
+				<div class="col-sm-4">
+					<input th:field="*{tipo}" th:value="*{tipo}" type="text" class="form-control" id="inputTipo" placeholder="Ingrese Tipo">
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label for="inputRaza" class="col-sm-2 col-form-label">Raza :</label>
+				<div class="col-sm-4">
+					<input th:field="*{raza}" th:value="*{raza}" type="text" class="form-control" id="inputRaza" placeholder="Ingrese Raza">
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label for="inputVacuna" class="col-sm-2 col-form-label">Id Vacunas :</label>
+				<div class="col-sm-4">
+					<input th:field="*{vacuna}" th:value="*{vacuna}" type="text" class="form-control" id="inputVacuna" placeholder="Ingrese Id Vacunas">
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label for="inputFecha" class="col-sm-2 col-form-label">Fecha :</label>
+				<div class="col-sm-4">
+					<input th:field="*{fecha}" th:value="*{fecha}" type="text" class="form-control" id="inputFecha" placeholder="Ingrese Fecha">
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label for="inputFecNac" class="col-sm-2 col-form-label">Fecha Nacimiento :</label>
+				<div class="col-sm-4">
+					<input th:field="*{fecnac}" th:value="*{fecnac}" type="text" class="form-control" id="inputFecNac" placeholder="Ingrese Fecha Nacimiento">
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<div class="col-sm-10">
+					<button type="submit" class="btn btn-primary">Registrar</button>
+				</div>
+			</div>
+
+		</form>
+	</div>
+
+<!-- /.container -->
+	<br>
+	<!-- Footer -->
+	<footer class="py-5 bg-dark">
+		<div class="container">
+			<p class="m-0 text-center text-white">Copyright &copy; Spring Veterinaria 2022</p>
+		</div>
+		<!-- /.container -->
+	</footer>
+
+	<!-- Bootstrap core JavaScript -->
+	<script th:src="@{vendor/jquery/jquery.min.js}"></script>
+	<script th:src="@{vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</html>

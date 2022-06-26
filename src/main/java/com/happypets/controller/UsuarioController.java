@@ -64,7 +64,7 @@ public class UsuarioController {
     }*/
 
     // url: http://localhost:9090/web/inicio
-    @GetMapping("/inicio")
+/*    @GetMapping("/inicio")
     public String pagPrincipal(Model model) {
         model.addAttribute("usuarios", service.findByUser(null));
         return "principal";
@@ -76,7 +76,7 @@ public class UsuarioController {
         List<Usuario> lista = service.listaUsuario();
         return ResponseEntity.ok(lista);
     }
-
+*/
     @PostMapping("/agregarUsuario")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> insertaUsuario(@RequestBody Usuario usu) {
@@ -132,7 +132,7 @@ public class UsuarioController {
         return "registrarUsuario";
 
     }
-
+/*
     @PostMapping("/guardar")
     public String guardar(@Validated Usuario usuario, Errors errores) {
 
@@ -145,7 +145,7 @@ public class UsuarioController {
         return "redirect:/";
 
     }
-
+*/
     /*@GetMapping("/editar/{idPersona}")
     public String editar(Usuario usuario, Model model) {
         usuario = service.obtenerUsuario(usuario);

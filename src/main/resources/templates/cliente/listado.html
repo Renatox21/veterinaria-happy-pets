@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link th:href="@{/css/bootstrap.css}" rel="stylesheet" href="../static/css/bootstrap.css">
+	<script th:src="@{/js/bootstrap.js}" src="../static/js/bootstrap.js"></script>
+	<script th:src="@{/js/jquery.js}" src="../static/js/jquery.js"></script>
+	<title>Veterinaria Happy Pets</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+	<!-- Bootstrap core CSS -->
+	<link th:href="@{vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+	<!-- Custom styles for this template -->
+	<link th:href="@{css/heroic-features.css}" rel="stylesheet">
+	</head>
+	<body>
+	
+	<!-- Navigation -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+		<div class="container">
+			<a class="navbar-brand"> Veterinaria Happy Pets</a>
+
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+				aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<!--<li class="nav-item"><a class="nav-link" href="carrito.html">Carrito</a></li>-->
+					<li class="nav-item"><a class="nav-link" href="/user/cargar">Cerrar session</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	
+	
+	<div class="container">
+		
+		<h1> Listado de Clientes</h1>
+		<br>
+		
+		<table class="table table-striped table-info">
+		  <thead>
+		    <tr>
+		      <th scope="col">ID</th>
+		      <th scope="col">DNI</th>
+		      <th scope="col">Nombre</th>
+		      <th scope="col">Apellido</th>
+		      <th scope="col">Correo</th>
+		      <th scope="col">telefono</th>
+		      <th scope="col">Direccion</th>
+		      <th scope="col">Sexo</th>
+		    </tr>
+		  </thead>
+		  <tbody  th:each="usu : ${usuarios}">
+		  	<tr>
+		      <th th:text=${usu.id} scope="row"></th>
+		      <td th:text=${usu.dni}></td>
+		      <td th:text=${usu.nombre}></td>
+		      <td th:text=${usu.apellido}></td>
+		      <td th:text=${usu.correo}></td>
+		      <td th:text=${usu.telefono}></td>
+		      <td th:text=${usu.direccion}></td>
+		      <td th:text=${usu.sexo}></td>
+		    </tr>
+		  </tbody>
+		</table>
+		
+	
+	</div>
+	
+		
+		
+		<!-- /.container -->
+	<br>
+	<!-- Footer -->
+	<footer class="py-5 bg-dark">
+		<div class="container">
+			<p class="m-0 text-center text-white">Copyright &copy; Spring Veterinaria 2022</p>
+		</div>
+		<!-- /.container -->
+	</footer>
+
+	<!-- Bootstrap core JavaScript -->
+	<script th:src="@{vendor/jquery/jquery.min.js}"></script>
+	<script th:src="@{vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	</body>
+</html>

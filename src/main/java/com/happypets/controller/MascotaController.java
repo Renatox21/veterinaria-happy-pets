@@ -36,6 +36,15 @@ public class MascotaController {
 	@Autowired
 	private MascotaService service;
 	
+	@PostMapping("/saveMascota")
+    public String guardarMascota(Mascota mascota) {
+        System.out.println(mascota.toString());
+
+        service.insertaActualizaMascota(mascota);
+
+        return "listarMascota";
+    }
+	
 	@PostMapping("/agregarMascota")
 	@ResponseBody
 	@Operation(summary = "Registra Mascota", description = "Permite registrar el ingreso de una nueva mascota")

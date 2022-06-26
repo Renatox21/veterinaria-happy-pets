@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link th:href="@{/css/bootstrap.css}" rel="stylesheet" href="../static/css/bootstrap.css">
+	<script th:src="@{/js/bootstrap.js}" src="../static/js/bootstrap.js"></script>
+	<script th:src="@{/js/jquery.js}" src="../static/js/jquery.js"></script>
+	<title>Veterinaria Happy Pets</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+	<!-- Bootstrap core CSS -->
+	<link th:href="@{vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+	<!-- Custom styles for this template -->
+	<link th:href="@{css/heroic-features.css}" rel="stylesheet">
+
+</head>
+
+<body>
+<div id="contenedor">
+		<header th:fragment="header">
+			<h1>admin</h1>
+
+		</header>
+
+		<main>
+			<section style="width: 65%;float: left;">
+
+			</section>
+		</main>
+		<footer th:fragment="footer">
+		</footer>
+	</div>
+	
+	<!-- Navigation -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+		<div class="container">
+			<a class="navbar-brand"> Veterinaria Happy Pets</a>
+
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+				aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<div class="navbar-nav">
+					<a class="nav-link active" aria-current="page"
+						th:href="@{/hola/test}">Inicio</a> <a class="nav-link" href="#">Galeria</a>
+					<a class="nav-link" href="#">Post</a> <a class="nav-link disabled"
+						href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+				</div>
+			</div>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<!--<li class="nav-item"><a class="nav-link" href="carrito.html">Carrito</a></li>-->
+					<li class="nav-item"><a class="nav-link" href="/user/cargar">Cerrar session</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+
+	<div class="container">
+	<!-- Page Heading/Breadcrumbs -->
+		<h1 class="mt-4 mb-3">
+			Citas
+		</h1>
+
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+			<li class="breadcrumb-item active">listado de citas	</li>
+			<li class="breadcrumb-item active">agregar citas</li>
+		</ol>
+		<br>
+		<form th:action="@{/web/saveUsuario}" method="post"	th:object=${usuario}>
+
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="razon_consulta">razon_consulta :</label>
+				<div class="col-sm-10">
+					<textarea class="form-control" id="razon_consulta" name="razon_consulta"
+						placeholder="Ingrese la razon de consulta" required autocomplete="off"
+						th:text="${producto.descripcion}"> </textarea>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="costo_consulta">costo_consulta :</label>
+				<div class="col-sm-10">
+					<input type="number" class="form-control" id="costo_consulta" name="costo_consulta"
+						placeholder="Ingrese costo de la consulta" th:value="${producto.pre_uni}" required
+						autocomplete="off">
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="fec_registro">fec_registro :</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control date-picker hidden-sm-down" id="fec_registro" name="fec_registro"
+						placeholder="Ingrese la fecha de registro" th:value="${producto.pre_uni}" required="true">
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="fec_consulta">fec_consulta :</label>
+				<div class="col-sm-10">
+					<input type="number" class="form-control" id="fec_consulta" name="fec_consulta"
+						placeholder="Ingrese la fecha de consulta" th:value="${producto.pre_uni}" required
+						autocomplete="off">
+						<i class="form-group_bar"></i>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<div class="col-sm-10">
+					<button type="submit" class="btn btn-primary">Registrar</button>
+				</div>
+			</div>
+
+		</form>
+	</div>
+
+<!-- /.container -->
+	<br>
+	<!-- Footer -->
+	<footer class="py-5 bg-dark">
+		<div class="container">
+			<p class="m-0 text-center text-white">Copyright &copy; Spring Veterinaria 2022</p>
+		</div>
+		<!-- /.container -->
+	</footer>
+
+	<!-- Bootstrap core JavaScript -->
+	<script th:src="@{vendor/jquery/jquery.min.js}"></script>
+	<script th:src="@{vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</html>
