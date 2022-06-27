@@ -6,9 +6,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,43 +26,20 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/rest/producto")
+@CrossOrigin(origins = "http://localhost:4200")
 @Tag(name = "API Producto", description = "API con servicios para la gestion de productos")
 public class ProductoController {
 
 	@Autowired
 	private ProductoService service;
 	
-	@GetMapping("/cargarProducto")
-    public String cargarPag(Model model) {
-        model.addAttribute("producto", new Producto());
-        return "agregarProducto";
-    }
-
-    @PostMapping("/grabar")
-    public String grabarPag(@ModelAttribute Producto producto, Model model) {
-    	if(producto !=null && producto.getId_producto() > 0) {		
-			model.addAttribute("msj", "Producto "+producto.getId_producto()+" agregado");			
-			service.insertaProducto(producto);
-			return "agregarProducto";	
-		}else {
-			model.addAttribute("msj", "Error al registrar producto");			
-		return "agregarProducto";
-		}        
-    }
-    
-    @GetMapping("/listarProductos")
-	public String listadoProductos(@ModelAttribute Producto p, Model model) {		
-		model.addAttribute("lstProductos", service.listaProducto()); 
-		return "listadoproductos";  
-	}
-    /*
 	@GetMapping("/listarProductos")
 	@ResponseBody
 	@Operation(summary = "Listar productos", description = "Obtener listado de productos")
 	public ResponseEntity<List<Producto>> listaProducto() {
 		List<Producto> lista = service.listaProducto();
 		return ResponseEntity.ok(lista);
-	}*/
+	}
 	
 	@GetMapping("/listarProductosPorNombre")
 	@ResponseBody
@@ -77,27 +53,14 @@ public class ProductoController {
 	@ResponseBody
 	@Operation(summary = "Registrar productos", description = "Permite registrar productos")
 	public ResponseEntity<Map<String, Object>> insertaProducto(
-			@Parameter(name = "descripcion", description = "Descripcion del parametro")
-			@RequestParam(value = "desc_product", required = false) String desc_product,
-			@Parameter(name = "stock", description = "Cantidad del producto que ingresa")
-			@RequestParam(value = "stock", required = false) int stock,
-			@Parameter(name = "precio", description = "Precio unitario del producto")
-			@RequestParam(value = "pre_uni", required = false) double pre_uni,
-			@Parameter(name = "id de la categoria", description = "Ingresa el id de la categoria")
-			@RequestParam(value = "id_categoria", required = false) int id_categoria
-			){
+			@Parameter(name = "producto", description = "Datos del producto")
+			@RequestBody Producto producto){
 		
 		Map<String, Object> salida = new HashMap<String, Object>();
 		
 		try {
-			
-			Producto p = new Producto();
-			p.setDesc_product(desc_product);
-			p.setStock(stock);
-			p.setPre_uni(pre_uni);
-			p.setId_categoria(id_categoria);
-						
-			Producto objProducto = service.insertaProducto(p);
+								
+			Producto objProducto = service.insertaProducto(producto);
 			if(objProducto == null){
 				salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
 			}else {
@@ -119,7 +82,7 @@ public class ProductoController {
 		Map<String, Object> salida = new HashMap<String, Object>();
 		
 		try {						
-			Producto obj = service.obtenerProducto(pord.getId_producto());
+			Producto obj = service.obtenerProducto(pord.getId());
 			if (obj == null) {
 				salida.put("mensaje", "El producto no existe");
 				return ResponseEntity.ok(salida);

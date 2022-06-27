@@ -62,11 +62,11 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
-		<!-- <dependency>
+		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
-		</dependency>-->
+		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -85,11 +85,11 @@
 		</dependency>
 		
 		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
-		<dependency>
+		<!-- <dependency>
 		    <groupId>org.postgresql</groupId>
 		    <artifactId>postgresql</artifactId>
 		    <scope>runtime</scope>
-		</dependency>		
+		</dependency>	-->	
 		
 		<!--
 		<dependency>
@@ -98,6 +98,18 @@
 			<scope>test</scope>
 		</dependency>
 		-->
+		<dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>		
+		    <scope>test</scope>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.seleniumhq.selenium</groupId>
+		    <artifactId>selenium-java</artifactId>
+		    
+		</dependency>
+				
 	</dependencies>
 
 	<build>

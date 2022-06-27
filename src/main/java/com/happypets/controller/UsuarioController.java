@@ -6,69 +6,26 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.happypets.entity.Usuario;
 import com.happypets.service.UsuarioService;
 import com.happypets.util.Constantes;
-import org.springframework.validation.Errors;
-import org.springframework.validation.annotation.Validated;
 
 @RestController
 @RequestMapping(path="/rest/usuario")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UsuarioController {
 
     @Autowired
     private UsuarioService service;
-
-    // endpoint: http://localhost:8090/usuario/cargar
-    @GetMapping("/cargarUsuario")
-    public String cargarPag(Model model) {
-        model.addAttribute("usuario", new Usuario());
-        return "login";
-    }
-    
-    /*@PostMapping("/validar")
-    public String grabarPag(@ModelAttribute Usuario usuario, Model model) {
-        System.out.println(usuario);
-        //validar
-        Usuario u = service.findByCorreoAndClave(usuario.getCorreo(), usuario.getClave());
-        System.out.println(u);
-        if(u==null) {
-            model.addAttribute("usuario" , new Usuario());
-            model.addAttribute("mensaje" , "usuario clave incorrecto");
-            return "login";
-        }else {
-            model.addAttribute("lstProductos", repo.findAll());
-            model.addAttribute("lstCategorias", repoc.findAll());
-            model.addAttribute("lstEstado", repe.findAll());
-             model.getAttribute("usuario");
-                if(u.getIdtipo()==1) {
-
-                    return "administrador";
-                }
-                else {
-
-                    return "principal";
-                }
-        }
-    }*/
-
-    // url: http://localhost:9090/web/inicio
-/*    @GetMapping("/inicio")
-    public String pagPrincipal(Model model) {
-        model.addAttribute("usuarios", service.findByUser(null));
-        return "principal";
-    }
 
     @GetMapping("/listarUsuarios")
     @ResponseBody
@@ -76,7 +33,7 @@ public class UsuarioController {
         List<Usuario> lista = service.listaUsuario();
         return ResponseEntity.ok(lista);
     }
-*/
+
     @PostMapping("/agregarUsuario")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> insertaUsuario(@RequestBody Usuario usu) {
@@ -124,43 +81,5 @@ public class UsuarioController {
         }
         return ResponseEntity.ok(salida);
     }
-
-
-    @GetMapping("/agregar")
-    public String agregar(Usuario usuario) {
-
-        return "registrarUsuario";
-
-    }
-/*
-    @PostMapping("/guardar")
-    public String guardar(@Validated Usuario usuario, Errors errores) {
-
-        if (errores.hasErrors()) {
-            return "actualizarUsuario";
-        }
-
-        service.guardarUsuario(usuario);
-
-        return "redirect:/";
-
-    }
-*/
-    /*@GetMapping("/editar/{idPersona}")
-    public String editar(Usuario usuario, Model model) {
-        usuario = service.obtenerUsuario(usuario);
-
-        model.addAttribute("persona", persona);
-
-        return "modificar";
-
-    }
-
-    @GetMapping("/eliminar/{idPersona}")
-    public String eliminar(Usuario usuario) {
-
-        service.eliminar(usuario);
-        return "redirect:/";
-
-    }*/
+    
 }

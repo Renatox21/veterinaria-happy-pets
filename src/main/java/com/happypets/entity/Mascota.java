@@ -29,30 +29,30 @@ public class Mascota {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_mascota")
-	private int id_mascota;
+	private int id;
 	
 	@Column(name = "nombre_mascota")
-	private String nombre_mascota;
+	private String nombre;
 	
 	@Column(name = "tipo_mascota")
-	private String tipo_mascota;
+	private String tipo;
 	
 	@Column(name = "raza_mascota")
-	private String raza_mascota;
+	private String raza;
 	
 	@Column(name = "id_vacunas")
-	private int id_vacunas;
+	private int idVacunas;
 	
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@JsonDeserialize(using = SqlDateDeserializer.class)
 	@Temporal(TemporalType.DATE)
 	@Column(name = "fec_mascota")
-	private Date fec_mascota;
+	private Date fecMascota;
 	
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@JsonDeserialize(using = SqlDateDeserializer.class)
 	@Temporal(TemporalType.DATE)
 	@Column(name = "fec_nac")
-	private Date fec_nac;
+	private Date fecNacimiento;
 
 }

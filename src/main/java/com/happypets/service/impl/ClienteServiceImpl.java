@@ -37,4 +37,5 @@ public class ClienteServiceImpl implements ClienteService {
 		return repository.buscarClienteProNombre(nombre);
 	}
 
+	
 }

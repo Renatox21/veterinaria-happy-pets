@@ -22,18 +22,18 @@ public class Producto {
 	@Id	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_producto")
-	private int id_producto;
+	private int id;
 	
 	@Column(name = "desc_producto")
-	private String desc_product;
+	private String descripcion;
 	
 	@Column(name = "stock")
 	private int stock;
 	
 	@Column(name = "pre_uni")
-	private double pre_uni;
+	private double preUni;
 	
 	@Column(name = "id_categoria")
-	private int id_categoria;	
+	private int idCategoria;	
 	
 }
