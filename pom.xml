@@ -99,16 +99,17 @@
 		</dependency>
 		-->
 		<dependency>
-		    <groupId>junit</groupId>
-		    <artifactId>junit</artifactId>		
-		    <scope>test</scope>
+		  <groupId>org.seleniumhq.selenium</groupId>
+		  <artifactId>selenium-java</artifactId>		  
 		</dependency>
 		
+		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
-		    <groupId>org.seleniumhq.selenium</groupId>
-		    <artifactId>selenium-java</artifactId>
-		    
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>		    
+		    <scope>test</scope>
 		</dependency>
+		
 				
 	</dependencies>
 
