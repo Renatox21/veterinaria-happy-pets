@@ -1,11 +1,8 @@
 package com.happypets.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.happypets.entity.Cita;
 import com.happypets.service.CitaService;
-import com.happypets.util.Constantes;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -48,44 +44,13 @@ public class CitaController {
 	}
 	
 	
-	@PutMapping("/actualizarCita")
+	@PutMapping("/actualizarCita/{id}")
 	@ResponseBody
 	@Operation(summary = "Actualizar cita", description = "Actualiza citas existentes")
-	public ResponseEntity<Map<String, Object>> actualizarCita(@RequestBody Cita cita){
-		Map<String, Object> salida = new HashMap<String, Object>();
-		
-		try {						
-			
-			if (!obtenerCita(cita.getId_consulta())) {
-				salida.put("mensaje", "El idProducto del Producto debe ser diferente 0");
-				return ResponseEntity.ok(salida);
-			}
-			Cita objCita = citaService.guardarCita(cita);
-			if(objCita == null){
-				salida.put("mensaje", Constantes.MENSAJE_ACT_ERROR);
-			}else {
-				salida.put("mensaje", Constantes.MENSAJE_ACT_EXITOSO);
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			salida.put("mensaje", Constantes.MENSAJE_ACT_ERROR);
-		}
-		return ResponseEntity.ok(salida);
-	}
-	
-	@PutMapping("/obtenerCita/{id}")
-	@ResponseBody
-	@Operation(summary = "Actualizar cita", description = "Actualiza citas existentes")
-	public Boolean obtenerCita(int id){
-		
-		Boolean validador = false;
-		
+	public Cita actualizarCita(@RequestBody Cita cita, @PathVariable int id){
 		Cita citaActual = citaService.buscarPorId(id);
 		
-		if(citaActual == null) validador = true;
-		
-		return validador;
+		return citaService.guardarCita(cita);
 	}
 	
 	@DeleteMapping("/eliminarCita/{id}")
